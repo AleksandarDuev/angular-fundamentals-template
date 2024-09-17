@@ -9,3 +9,16 @@
     background-color: $color-white;
     box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.15);
 }
+
+.logo img {
+    width: 111px;
+    height: 48px;
+}
+
+.header-content {
+    display: flex;
+    align-items: center;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
