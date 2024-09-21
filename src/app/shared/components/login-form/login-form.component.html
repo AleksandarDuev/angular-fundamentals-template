@@ -1,27 +1,43 @@
 <h2 class="text-align-center">Login</h2>
 <div class="app-plate">
-  <form #loginForm="ngForm">
+  <form #loginForm="ngForm" (ngSubmit)="onSubmit()" novalidate>
     <div class="login-form">
       <div>
+        <!-- Email Field -->
         <div class="form__control">
           <label for="email">Email</label>
-          <!--Use the name `email` for the form control.-->
-          <input type="text" id="email" placeholder="Input text"/>
-          <span id="emailErrorMessage" class="text-danger">Email is required.</span>
+          <input type="text" id="email" name="email" placeholder="Enter your email" ngModel appEmail required
+            #emailCtrl="ngModel" [class.invalid]="(isSubmitted || emailCtrl.touched) && emailCtrl.invalid" />
+          <!-- Email Error Messages -->
+          <span id="emailErrorMessage" class="text-danger"
+            *ngIf="(isSubmitted || emailCtrl.touched) && emailCtrl.errors">
+            <span *ngIf="emailCtrl.errors?.['required']">Email is required.</span>
+            <span *ngIf="emailCtrl.errors?.['invalidEmail']">Please enter a valid email address.</span>
+          </span>
         </div>
+
+        <!-- Password Field -->
         <div class="form__control">
           <label for="password">Password</label>
-          <!--Use the name `password` for the form control.-->
-          <input type="password" id="password" placeholder="Input text"/>
-          <span id="passwordErrorMessage" class="text-danger">Password is required.</span>
+          <input type="password" id="password" name="password" placeholder="Enter your password" ngModel required
+            #passwordCtrl="ngModel" [class.invalid]="(isSubmitted || passwordCtrl.touched) && passwordCtrl.invalid" />
+          <!-- Password Error Messages -->
+          <span id="passwordErrorMessage" class="text-danger"
+            *ngIf="(isSubmitted || passwordCtrl.touched) && passwordCtrl.errors">
+            <span *ngIf="passwordCtrl.errors?.['required']">Password is required.</span>
+          </span>
         </div>
       </div>
+
       <div>
         <div class="form__action">
-          <app-button></app-button>
+          <!-- Submit Button -->
+          <button type="submit" [disabled]="loginForm.invalid" class="btn btn-primary">
+            Login
+          </button>
         </div>
         <div class="form__text">
-          If you don't have an account you may <strong>Registration</strong>
+          If you don't have an account, you may <strong>Register</strong>
         </div>
       </div>
     </div>
