@@ -1,4 +1,4 @@
-<!-- src/app/shared/components/registration-form/registration-form.component.html -->
+<!-- src/app/auth/registration-form.component.html -->
 
 <h2 class="text-align-center">Registration</h2>
 <div class="app-plate">
@@ -21,7 +21,7 @@
         <!-- Email Field -->
         <div class="form__control">
           <label for="email">Email</label>
-          <input type="text" id="email" placeholder="Enter your email" formControlName="email"
+          <input type="email" id="email" placeholder="Enter your email" formControlName="email" emailValidator
             [class.invalid]="(isSubmitted || formControls['email'].touched) && formControls['email'].invalid" />
           <!-- Email Error Messages -->
           <span id="emailErrorMessage" class="text-danger"
@@ -40,6 +40,8 @@
           <span id="passwordErrorMessage" class="text-danger"
             *ngIf="(isSubmitted || formControls['password'].touched) && formControls['password'].errors">
             <span *ngIf="formControls['password'].errors['required']">Password is required.</span>
+            <span *ngIf="formControls['password'].errors['minlength']">Password must be at least 6 characters
+              long.</span>
           </span>
         </div>
       </div>

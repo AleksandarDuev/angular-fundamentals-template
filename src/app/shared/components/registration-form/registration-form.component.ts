@@ -1,14 +1,6 @@
-// src/app/shared/components/registration-form/registration-form.component.ts
-
 import { Component, OnInit } from "@angular/core";
-import {
-    FormBuilder,
-    FormGroup,
-    Validators,
-    AbstractControl,
-} from "@angular/forms";
-import { customEmailValidator } from "../../validators/email.validator";
-import { Router } from "@angular/router";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+
 
 @Component({
     selector: "app-registration-form",
@@ -17,9 +9,9 @@ import { Router } from "@angular/router";
 })
 export class RegistrationFormComponent implements OnInit {
     registrationForm!: FormGroup;
-    isSubmitted: boolean = false;
+    isSubmitted = false;
 
-    constructor(private fb: FormBuilder, private router: Router) {}
+    constructor(private fb: FormBuilder) {}
 
     ngOnInit(): void {
         this.initializeForm();
@@ -31,42 +23,34 @@ export class RegistrationFormComponent implements OnInit {
     private initializeForm(): void {
         this.registrationForm = this.fb.group({
             name: ["", [Validators.required, Validators.minLength(6)]],
-            email: ["", [Validators.required, customEmailValidator()]],
-            password: ["", [Validators.required]],
+            email: ["", [Validators.required]], 
+            password: ["", [Validators.required, Validators.minLength(6)]],
         });
-    }
-
-    /**
-     * Handles form submission.
-     * Checks if the form is valid and performs registration logic.
-     */
-    onSubmit(): void {
-        this.isSubmitted = true;
-
-        if (this.registrationForm.valid) {
-            const { name, email, password } = this.registrationForm.value;
-
-            // TODO: Implement actual registration logic here (e.g., call an authentication service)
-            console.log("Registration successful!");
-            console.log("Name:", name);
-            console.log("Email:", email);
-            console.log("Password:", password);
-
-            // Optionally, navigate to the login page after successful registration
-            this.router.navigate(["/login"]);
-
-            // Reset the form after submission
-            this.registrationForm.reset();
-            this.isSubmitted = false;
-        } else {
-            console.log("Form is invalid");
-        }
     }
 
     /**
      * Getter for easy access to form controls in the template.
      */
-    get formControls(): { [key: string]: AbstractControl } {
+    get formControls() {
         return this.registrationForm.controls;
+    }
+
+    /**
+     * Handles form submission.
+     */
+    onSubmit(): void {
+        this.isSubmitted = true;
+
+        if (this.registrationForm.valid) {
+            console.log("Form Submitted!", this.registrationForm.value);
+            // Handle form submission logic here (e.g., send data to backend)
+            // Optionally, reset the form after successful submission
+            this.registrationForm.reset();
+            this.isSubmitted = false;
+        } else {
+            console.log("Form is invalid");
+            // Optionally, mark all controls as touched to trigger validation messages
+            this.registrationForm.markAllAsTouched();
+        }
     }
 }
