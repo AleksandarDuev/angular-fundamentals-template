@@ -1,3 +1,5 @@
+<!-- src/app/auth/login-form/login-form.component.html -->
+
 <h2 class="text-align-center">Login</h2>
 <div class="app-plate">
   <form #loginForm="ngForm" (ngSubmit)="onSubmit()" novalidate>
@@ -6,7 +8,7 @@
         <!-- Email Field -->
         <div class="form__control">
           <label for="email">Email</label>
-          <input type="text" id="email" name="email" placeholder="Enter your email" ngModel appEmail required
+          <input type="email" id="email" name="email" placeholder="Enter your email" ngModel emailValidator
             #emailCtrl="ngModel" [class.invalid]="(isSubmitted || emailCtrl.touched) && emailCtrl.invalid" />
           <!-- Email Error Messages -->
           <span id="emailErrorMessage" class="text-danger"
@@ -37,7 +39,7 @@
           </button>
         </div>
         <div class="form__text">
-          If you don't have an account, you may <strong>Register</strong>
+          If you don't have an account, you may <a routerLink="/register"><strong>Register</strong></a>
         </div>
       </div>
     </div>
