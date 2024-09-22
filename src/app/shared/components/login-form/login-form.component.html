@@ -8,8 +8,9 @@
         <!-- Email Field -->
         <div class="form__control">
           <label for="email">Email</label>
-          <input type="email" id="email" name="email" placeholder="Enter your email" ngModel emailValidator
-            #emailCtrl="ngModel" [class.invalid]="(isSubmitted || emailCtrl.touched) && emailCtrl.invalid" />
+          <input type="email" id="email" name="email" placeholder="Enter your email" ngModel emailValidator required
+            #emailCtrl="ngModel" [class.invalid]="(isSubmitted || emailCtrl.touched) && emailCtrl.invalid"
+            aria-describedby="emailErrorMessage" />
           <!-- Email Error Messages -->
           <span id="emailErrorMessage" class="text-danger"
             *ngIf="(isSubmitted || emailCtrl.touched) && emailCtrl.errors">
@@ -22,7 +23,8 @@
         <div class="form__control">
           <label for="password">Password</label>
           <input type="password" id="password" name="password" placeholder="Enter your password" ngModel required
-            #passwordCtrl="ngModel" [class.invalid]="(isSubmitted || passwordCtrl.touched) && passwordCtrl.invalid" />
+            #passwordCtrl="ngModel" [class.invalid]="(isSubmitted || passwordCtrl.touched) && passwordCtrl.invalid"
+            aria-describedby="passwordErrorMessage" />
           <!-- Password Error Messages -->
           <span id="passwordErrorMessage" class="text-danger"
             *ngIf="(isSubmitted || passwordCtrl.touched) && passwordCtrl.errors">
