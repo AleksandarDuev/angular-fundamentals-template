@@ -2,45 +2,82 @@
 <form [formGroup]="courseForm" (ngSubmit)="onSubmit()">
   <div class="app-plate">
     <div class="course">
+      <!-- Main Info Section -->
       <h3>Main Info</h3>
       <div class="form__control">
         <label for="title">Title</label>
         <input type="text" id="title" formControlName="title" placeholder="Input text" />
-        <span *ngIf="courseForm.get('title')?.invalid && (courseForm.get('title')?.touched || submitted)"
-          class="text-danger">Title is required.</span>
+        <span id="titleErrorMessage" class="text-danger" *ngIf="isControlInvalid(courseForm.get('title'))">
+          Title is required and must be at least 2 characters.
+        </span>
       </div>
+
       <div class="form__control">
         <label for="description">Description</label>
         <textarea id="description" formControlName="description" placeholder="Input text" rows="4" cols="5"></textarea>
-        <span *ngIf="courseForm.get('description')?.invalid && (courseForm.get('description')?.touched || submitted)"
-          class="text-danger">Description is required.</span>
+        <span id="descriptionErrorMessage" class="text-danger" *ngIf="isControlInvalid(courseForm.get('description'))">
+          Description is required and must be at least 2 characters.
+        </span>
       </div>
+
       <div class="separator"></div>
+
+      <!-- Authors Section -->
       <h3>Authors</h3>
       <div class="form__control">
         <div class="course__flex">
           <input type="text" id="author" formControlName="newAuthor.name" placeholder="Input Author Name" />
-          <app-button (click)="addAuthor()">Create Author</app-button>
+          <button type="button" (click)="addNewAuthor()">Create Author</button>
         </div>
-        <span
-          *ngIf="courseForm.get('newAuthor.name')?.invalid && (courseForm.get('newAuthor.name')?.touched || submitted)"
-          class="text-danger">New author should contain only latin letters and numbers.</span>
+        <span id="authorErrorMessage" class="text-danger" *ngIf="isControlInvalid(courseForm.get('newAuthor.name'))">
+          New author should contain only Latin letters and numbers and be at least 2 characters.
+        </span>
+
         <div class="course__authors">
-          <div *ngFor="let author of authors.controls; let i = index">
-            {{ author.value }}
-            <button type="button" (click)="removeAuthor(i)">Delete Author</button>
-          </div>
+          <h4>Available Authors</h4>
+          <ul>
+            <li *ngFor="let author of availableAuthors">
+              {{ author.name }}
+              <button type="button" (click)="addExistingAuthor(author)">
+                Add Author
+              </button>
+            </li>
+          </ul>
+        </div>
+
+        <div class="course__authors">
+          <h4>Course Authors</h4>
+          <ul>
+            <li *ngFor="let author of courseAuthors; let i = index">
+              {{ author.name }}
+              <button type="button" (click)="removeCourseAuthor(author, i)">
+                Delete Author
+              </button>
+            </li>
+          </ul>
         </div>
       </div>
+
       <div class="separator"></div>
+
+      <!-- Duration Section -->
       <h3>Duration</h3>
       <div class="form__control">
-        <input type="number" id="duration" formControlName="duration" placeholder="Input duration" />
-        <span *ngIf="courseForm.get('duration')?.invalid && (courseForm.get('duration')?.touched || submitted)"
-          class="text-danger">Duration is required and must be non-negative.</span>
+        <div class="course__flex">
+          <input type="number" id="duration" formControlName="duration" placeholder="Input duration" />
+          <div class="course__duration">
+            <!-- You can display formatted duration here if needed -->
+            Duration: {{ courseForm.get('duration')?.value }} minutes
+          </div>
+        </div>
+        <span id="durationErrorMessage" class="text-danger" *ngIf="isControlInvalid(courseForm.get('duration'))">
+          Duration is required and must be non-negative.
+        </span>
       </div>
+
+      <!-- Submit Button -->
       <div class="form__action">
-        <app-button type="submit">Submit</app-button>
+        <button type="submit">Submit</button>
       </div>
     </div>
   </div>
