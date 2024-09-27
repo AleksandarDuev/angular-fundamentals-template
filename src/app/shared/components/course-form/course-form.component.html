@@ -1,95 +1,23 @@
-<h2>Create / Edit Course</h2>
-<form [formGroup]="courseForm" (ngSubmit)="onSubmit()">
-  <div class="app-plate">
-    <div class="course">
-      <!-- Main Info Section -->
-      <h3>Main Info</h3>
-      <div class="form__control">
-        <label for="title">Title</label>
-        <!-- Use the name `title` for the form control. -->
-        <input type="text" id="title" formControlName="title" placeholder="Input text" />
-        <span id="titleErrorMessage" class="text-danger" *ngIf="isControlInvalid(courseForm.get('title'))">
-          Title is required and must be at least 2 characters.
-        </span>
-      </div>
-
-      <div class="form__control">
-        <label for="description">Description</label>
-        <!-- Use the name `description` for the form control. -->
-        <textarea id="description" formControlName="description" placeholder="Input text" rows="4" cols="5"></textarea>
-        <span id="descriptionErrorMessage" class="text-danger" *ngIf="isControlInvalid(courseForm.get('description'))">
-          Description is required and must be at least 2 characters.
-        </span>
-      </div>
-
-      <div class="separator"></div>
-
-      <!-- Authors Section -->
-      <h3>Authors</h3>
-      <div class="form__control">
-        <!-- New Author Input -->
-        <div class="course__flex">
-          <div formGroupName="newAuthor" style="flex: 1; margin-right: 10px;">
-            <!-- Use the name `newAuthor` for the form group and `name` for the form control. -->
-            <input type="text" id="author" formControlName="name" placeholder="Input Author Name" />
-          </div>
-          <button type="button" (click)="addNewAuthor()" id="createAuthor">
-            Create Author
-          </button>
-        </div>
-        <span id="authorErrorMessage" class="text-danger"
-          *ngIf="isControlInvalid(courseForm.get('newAuthor')?.get('name') || null)">
-          New author should contain only Latin letters and numbers and be at least 2 characters.
-        </span>
-
-        <!-- Available Authors List -->
-        <div class="course__authors">
-          <h4>Available Authors</h4>
-          <ul>
-            <li *ngFor="let authorGroup of authors.controls; let i = index" [formGroupName]="i">
-              {{ authorGroup.get('name')?.value }}
-              <button type="button" (click)="addExistingAuthor(i)">
-                Add Author
-              </button>
-            </li>
-          </ul>
-        </div>
-
-        <!-- Course Authors List -->
-        <div class="course__authors">
-          <h4>Course Authors</h4>
-          <ul>
-            <li *ngFor="let courseAuthorGroup of courseAuthors.controls; let i = index" [formGroupName]="i">
-              {{ courseAuthorGroup.get('name')?.value }}
-              <button type="button" (click)="removeCourseAuthor(i)">
-                Delete Author
-              </button>
-            </li>
-          </ul>
-        </div>
-      </div>
-
-      <div class="separator"></div>
-
-      <!-- Duration Section -->
-      <h3>Duration</h3>
-      <div class="form__control">
-        <div class="course__flex">
-          <!-- Use the name `duration` for the form control. -->
-          <input type="number" id="duration" formControlName="duration" placeholder="Input duration" />
-          <div class="course__duration">
-            Duration: {{ courseForm.get('duration')?.value }} minutes
-          </div>
-        </div>
-        <span id="durationErrorMessage" class="text-danger" *ngIf="isControlInvalid(courseForm.get('duration'))">
-          Duration is required and must be non-negative.
-        </span>
-      </div>
-
-      <!-- Submit Button -->
-      <div class="form__action">
-        <button type="submit">Submit</button>
-      </div>
+<div>
+  <h1>Add Course</h1>
+  <form (ngSubmit)="addCourse()">
+    <div>
+      <label>Title:</label>
+      <input type="text" [(ngModel)]="course.title" name="title" required />
     </div>
-  </div>
-</form>
+    <div>
+      <label>Description:</label>
+      <textarea [(ngModel)]="course.description" name="description" required></textarea>
+    </div>
+    <div>
+      <label>Duration (in minutes):</label>
+      <input type="number" [(ngModel)]="course.duration" name="duration" required />
+    </div>
+    <div>
+      <label>Authors:</label>
+      <input type="text" [(ngModel)]="course.authors" name="authors" required />
+      <!-- This can be a more complex input -->
+    </div>
+    <button type="submit">Add Course</button>
+  </form>
+</div>
