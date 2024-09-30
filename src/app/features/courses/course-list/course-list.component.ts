@@ -6,7 +6,7 @@ import { faPencil, faTrashCan } from "@fortawesome/free-solid-svg-icons";
 @Component({
     selector: "app-course-list",
     templateUrl: "./course-list.component.html",
-    styleUrls: ["./course-list.component.css"],
+    styleUrls: ["./course-list.component.scss"],
 })
 export class CourseListComponent {
     // Input properties for the list of courses and the editable flag
