@@ -2,59 +2,51 @@ import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs";
 import { environment } from "../../environments/environment";
-import { Course, Author } from "../models"; // Adjust the import path as needed
+import { Course, Author } from "../models";
 
 @Injectable({
-    providedIn: "root",
+  providedIn: "root",
 })
 export class CoursesService {
-    private apiUrl = `${environment.apiBaseUrl}/courses`; // Base URL for the courses API
+  private apiUrl = `${environment.apiBaseUrl}/courses`;
 
-    constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {}
 
-    getAll(): Observable<Course[]> {
-        // Use Course[] instead of any[]
-        return this.http.get<Course[]>(this.apiUrl);
-    }
+  getAll(): Observable<Course[]> {
+    return this.http.get<Course[]>(this.apiUrl);
+  }
 
-    createCourse(course: Course): Observable<Course> {
-        // Use Course instead of any
-        return this.http.post<Course>(this.apiUrl, course);
-    }
+  createCourse(course: Course): Observable<Course> {
+    return this.http.post<Course>(this.apiUrl, course);
+  }
 
-    editCourse(id: string, course: Course): Observable<Course> {
-        // Use Course instead of any
-        return this.http.put<Course>(`${this.apiUrl}/${id}`, course);
-    }
+  editCourse(id: string, course: Course): Observable<Course> {
+    return this.http.put<Course>(`${this.apiUrl}/${id}`, course);
+  }
 
-    getCourse(id: string): Observable<Course> {
-        // Use Course instead of any
-        return this.http.get<Course>(`${this.apiUrl}/${id}`);
-    }
+  getCourse(id: string): Observable<Course> {
+    return this.http.get<Course>(`${this.apiUrl}/${id}`);
+  }
 
-    deleteCourse(id: string): Observable<any> {
-        // Can keep as any if there's no specific return type
-        return this.http.delete<Course>(`${this.apiUrl}/${id}`);
-    }
+  deleteCourse(id: string): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/${id}`);  // Change to `void` since delete typically returns nothing
+  }
 
-    filterCourses(value: string): Observable<Course[]> {
-        // Use Course[] instead of any[]
-        return this.http.get<Course[]>(`${this.apiUrl}?search=${value}`);
-    }
+  filterCourses(value: string): Observable<Course[]> {
+    return this.http.get<Course[]>(`${this.apiUrl}?search=${value}`);
+  }
 
-    getAllAuthors(): Observable<any[]> {
-        // Replace 'any[]' with your specific author interface if defined
-        return this.http.get<Author[]>(`${environment.apiBaseUrl}/authors`);
-    }
+  getAllAuthors(): Observable<Author[]> {
+    return this.http.get<Author[]>(`${environment.apiBaseUrl}/authors`);
+  }
 
-    createAuthor(name: string): Observable<any> {
-        return this.http.post<Author>(`${environment.apiBaseUrl}/authors`, {
-            name,
-        });
-    }
+  createAuthor(name: string): Observable<Author> {
+    return this.http.post<Author>(`${environment.apiBaseUrl}/authors`, {
+      name,
+    });
+  }
 
-    getAuthorById(id: string): Observable<any> {
-        // Replace 'any' with your specific author interface if defined
-        return this.http.get<Author>(`${environment.apiBaseUrl}/authors/${id}`);
-    }
+  getAuthorById(id: string): Observable<Author> {
+    return this.http.get<Author>(`${environment.apiBaseUrl}/authors/${id}`);
+  }
 }
