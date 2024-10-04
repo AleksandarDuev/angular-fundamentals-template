@@ -12,27 +12,29 @@ export class CoursesService {
     constructor(private http: HttpClient) {}
 
     getAll(): Observable<Course[]> {
-        return this.http.get<Course[]>(this.apiUrl/courses/all);
+        return this.http.get<Course[]>(`${this.apiUrl}/courses/all`); // Corrected here
     }
 
     createCourse(course: Course): Observable<Course> {
-        return this.http.post<Course>(this.apiUrl/courses/add, course);
+        return this.http.post<Course>(`${this.apiUrl}/courses/add`, course);
     }
 
     editCourse(id: string, course: Course): Observable<Course> {
-        return this.http.put<Course>(`${this.apiUrl}/${id}`, course);
+        return this.http.put<Course>(`${this.apiUrl}/courses/${id}`, course); // Corrected here
     }
 
     getCourse(id: string): Observable<Course> {
-        return this.http.get<Course>(`${this.apiUrl}/courses/${id}`);
+        return this.http.get<Course>(`${this.apiUrl}/courses/${id}`); // Corrected here
     }
 
     deleteCourse(id: string): Observable<void> {
-        return this.http.delete<void>(`${this.apiUrl}/courses/${id}`); // Change to `void` since delete typically returns nothing
+        return this.http.delete<void>(`${this.apiUrl}/courses/${id}`); // Corrected here
     }
 
     filterCourses(value: string): Observable<Course[]> {
-        return this.http.get<Course[]>(`${this.apiUrl}/courses/filter?search=${value}`);
+        return this.http.get<Course[]>(
+            `${this.apiUrl}/courses/filter?search=${value}`
+        );
     }
 
     getAllAuthors(): Observable<Author[]> {
