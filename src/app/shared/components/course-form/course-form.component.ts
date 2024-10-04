@@ -12,7 +12,7 @@ export class CourseFormComponent {
     course: Course = {
         title: "",
         description: "",
-        creationDate: new Date().toISOString().split("T")[0], // Default to today
+        creationDate: new Date(),
         duration: 0,
         authors: [],
         id: "", // This will be generated on creation

@@ -64,7 +64,9 @@ export class CoursesStateFacade {
             id: body.id || "", // default empty string or generate one if needed
             title: body.title || "Untitled Course", // default title
             description: body.description || "No description available",
-            creationDate: body.creationDate || new Date().toISOString(), // current date if not provided
+            creationDate: body.creationDate
+                ? new Date(body.creationDate)
+                : new Date(), // current date if not provided
             duration: body.duration || 0, // default duration
             authors: body.authors || [], // default empty authors array
         };
