@@ -12,7 +12,7 @@ export interface CoursesState {
     isAllCoursesLoading: boolean; // Loading state for all courses
     isSingleCourseLoading: boolean; // Loading state for a single course
     isSearchState: boolean; // Search mode state
-    errorMessage: string | null; // Error message for any failed operation
+    errorMessage: string | ""; // Error message for any failed operation
 }
 
 // 2.3 Create `initialState` for the reducer
@@ -22,7 +22,7 @@ export const initialState: CoursesState = {
     isAllCoursesLoading: false,
     isSingleCourseLoading: false,
     isSearchState: false,
-    errorMessage: null,
+    errorMessage: "",
 };
 
 // 2.4 Implement the reducer functionality
@@ -33,7 +33,7 @@ export const coursesReducer = createReducer(
     on(CoursesActions.requestAllCourses, (state) => ({
         ...state,
         isAllCoursesLoading: true,
-        errorMessage: null,
+        errorMessage: "",
     })),
     on(CoursesActions.requestAllCoursesSuccess, (state, { courses }) => ({
         ...state,
@@ -50,7 +50,7 @@ export const coursesReducer = createReducer(
     on(CoursesActions.requestSingleCourse, (state) => ({
         ...state,
         isSingleCourseLoading: true,
-        errorMessage: null,
+        errorMessage: "",
     })),
     on(CoursesActions.requestSingleCourseSuccess, (state, { course }) => ({
         ...state,
@@ -68,7 +68,7 @@ export const coursesReducer = createReducer(
         ...state,
         isAllCoursesLoading: true,
         isSearchState: true,
-        errorMessage: null,
+        errorMessage: "",
     })),
     on(CoursesActions.requestFilteredCoursesSuccess, (state, { courses }) => ({
         ...state,
@@ -87,7 +87,7 @@ export const coursesReducer = createReducer(
     on(CoursesActions.requestDeleteCourse, (state) => ({
         ...state,
         isAllCoursesLoading: true,
-        errorMessage: null,
+        errorMessage: "",
     })),
     on(CoursesActions.requestDeleteCourseSuccess, (state) => ({
         ...state,
@@ -103,7 +103,7 @@ export const coursesReducer = createReducer(
     on(CoursesActions.requestEditCourse, (state) => ({
         ...state,
         isSingleCourseLoading: true,
-        errorMessage: null,
+        errorMessage: "",
     })),
     on(CoursesActions.requestEditCourseSuccess, (state, { course }) => ({
         ...state,
@@ -120,7 +120,7 @@ export const coursesReducer = createReducer(
     on(CoursesActions.requestCreateCourse, (state) => ({
         ...state,
         isSingleCourseLoading: true,
-        errorMessage: null,
+        errorMessage: "",
     })),
     on(CoursesActions.requestCreateCourseSuccess, (state, { course }) => ({
         ...state,
